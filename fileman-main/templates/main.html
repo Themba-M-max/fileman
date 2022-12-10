@@ -1,0 +1,236 @@
+{% extends "sidebar.html"%}
+{% block head %}
+    {{ super() }}
+    <!-- <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous"> -->
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/popup.css') }}">
+    <!-- CSS only -->
+    <!-- <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-iYQeCzEYFbKjA/T2uDLTpkwGzCiq6soy8tYaI1GyVh/UjpbCx/TYkiZhlZB6+fzT" crossorigin="anonymous"> -->
+
+    <title>Main</title>
+{% endblock %} 
+
+{% block body %}
+<!-- style="display: none;" -->
+    
+    <div id="authentication-modal" tabindex="-1" aria-hidden="true" class="hidden overflow-y-auto overflow-x-hidden fixed top-0 right-0 left-0 z-50 w-full md:inset-0 h-modal md:h-full justify-center items-center"></div> 
+    <div data-popover id="popover-default" role="tooltip" class="inline-block absolute invisible z-10 w-64 text-sm font-light text-gray-500 bg-white rounded-lg border border-gray-200 shadow-sm opacity-0 transition-opacity duration-300 dark:text-gray-400 dark:border-gray-600 dark:bg-gray-800">
+        <div class="py-2 px-3 bg-gray-100 rounded-t-lg border-b border-gray-200 dark:border-gray-600 dark:bg-gray-700">
+            <h3 class="font-semibold text-gray-900 dark:text-white">Create Folder</h3>
+        </div>
+        <div class="py-2 px-3">
+            <p>Click the button to create a new folder</p>
+        </div>
+        <div data-popper-arrow></div>
+    </div>
+
+    <div data-popover id="popover-upload" role="tooltip" class="inline-block absolute invisible z-10 w-64 text-sm font-light text-gray-500 bg-white rounded-lg border border-gray-200 shadow-sm opacity-0 transition-opacity duration-300 dark:text-gray-400 dark:border-gray-600 dark:bg-gray-800">
+        <div class="py-2 px-3 bg-gray-100 rounded-t-lg border-b border-gray-200 dark:border-gray-600 dark:bg-gray-700">
+            <h3 class="font-semibold text-gray-900 dark:text-white">Upload</h3>
+        </div>
+        <div class="py-2 px-3">
+            <p>Click on the button to upload files to fileman</p>
+        </div>
+        <div data-popper-arrow></div>
+    </div>
+    
+    {%if back%}
+        <div class="back">
+            
+                <form method="post" action="/my-files">
+                    <input name="back" class="btn" type="submit" value="Back" /> 
+                </form>  
+
+                <!-- <div class="back_image"> 
+                    <img src="/static/images/backicon.png" width="40px" alt="back button">
+                </div> -->
+            
+        </div>
+    {%else%}
+    <div class="back" style="display: none;">
+        
+            <form method="post" action="/back">
+                 <input name="back" class="btn" type="button" value="Back"/>
+            </form>
+        
+          
+    </div>
+    {%endif%} 
+    <div class="drop_folder"> 
+        <div id="file" draggable="true"></div>
+    </div>
+
+    <!-- <div class="p-4 mb-4 text-sm text-blue-700 bg-blue-100 rounded-lg dark:bg-blue-200 dark:text-blue-800" role="alert">
+      <span class="font-medium">Info alert!</span> Change a few things up and try submitting again.
+    </div> -->
+    <!-- <div class="p-4 mb-4 text-sm text-red-700 bg-red-100 rounded-lg dark:bg-red-200 dark:text-red-800" role="alert">
+      <span class="font-medium">Danger alert!</span> Change a few things up and try submitting again.
+    </div>
+    <div class="p-4 mb-4 text-sm text-green-700 bg-green-100 rounded-lg dark:bg-green-200 dark:text-green-800" role="alert">
+      <span class="font-medium">Success alert!</span> Change a few things up and try submitting again.
+    </div>
+    <div class="p-4 mb-4 text-sm text-yellow-700 bg-yellow-100 rounded-lg dark:bg-yellow-200 dark:text-yellow-800" role="alert">
+      <span class="font-medium">Warning alert!</span> Change a few things up and try submitting again.
+    </div>
+    <div class="p-4 text-sm text-gray-700 bg-gray-100 rounded-lg dark:bg-gray-700 dark:text-gray-300" role="alert">
+      <span class="font-medium">Dark alert!</span> Change a few things up and try submitting again.
+    </div> -->
+
+
+
+
+
+
+    <ul>
+        {% if folders|length ==0 and files|length==0 %}
+            <!-- <h2 class="nofiles place-items-end" style="text-align: center;">No files to show, upload files</h2> -->
+             <div class="p-4 mb-4 text-sm text-blue-700 bg-blue-100 rounded-lg dark:bg-blue-200 dark:text-blue-800" role="alert">
+      <span class="font-medium">Info alert!</span> No files to show, upload files
+    </div>
+        {% elif folders|length != 0 and files|length == 0 %}
+            {% for folder in folders %}
+            <div id="Folder{{loop.index}}" class="folder"><a class="link" href="/my-files?pathd={{folder}}">{{ folder }}</a>
+                <div id="dropdownFolder{{loop.index}}" class="hidden z-10 w-44 bg-white rounded divide-y divide-gray-100 shadow dark:bg-gray-700 dark:divide-gray-600">
+                    <ul class="py-1 text-sm text-gray-700 dark:text-gray-200" aria-labelledby="dropdownMenuIconButton">
+                      <li>
+                        <a href="/my-files?pathd={{folder}}" class="block py-2 px-4 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white">
+                          
+                          Open
+                        </a>
+                      </li>
+                      <li>
+                        <a href="#/my-files?pathd={{folder}}" class="renameFolder block py-2 px-4 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white" data-modal-toggle="authentication-modal">
+                          <i class='bx bx-rename'></i>
+                          <span>Rename</span>
+                        </a>
+                      </li>
+                      <li class="disabled">
+                        <a href="#" class="block py-2 px-4 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white">Move</a>
+                      </li>
+                      <li class="">
+                        <a href="/my-files?pathd={{folder}}&download=1" class="block py-2 px-4 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white">
+                          <i class='bx bx-download'></i>
+                          <span>Download</span>
+
+                        </a>
+                      </li>
+                    </ul>
+                    <div class="py-1">
+                      <a href="/my-files?pathd={{folder}}&delete=1" class="block py-2 px-4 text-sm text-gray-700 hover:bg-gray-100 dark:hover:bg-gray-600 dark:text-gray-200 dark:hover:text-white">Delete</a>
+                    </div>
+                </div>
+            </div>
+            {% endfor %}
+        {% elif files|length != 0 and folders|length ==0 %}
+            {% for file in files %}
+            <div id="File{{loop.index}}" class="file typeFile"><a class="link" href="/my-files?pathf={{file}}">{{ file }}</a>
+            
+                <div  id="dropdownFile{{ loop.index }}" class="hidden z-10 w-44 bg-white rounded divide-y divide-gray-100 shadow dark:bg-gray-700 dark:divide-gray-600">
+                    <ul class="py-1 text-sm text-gray-700 dark:text-gray-200" aria-labelledby="dropdownMenuIconButton">
+                      <li>
+                        <a href="/my-files?open={{file}}" target="_blank" class="block py-2 px-4 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white">Open</a>
+                      </li>
+                      <li>
+                        <li class="disabled">
+                          <a href="/myfiles?Edit={{file}}" class="block py-2 px-4 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white">Edit</a>
+                        </li>
+                        <a href="#/my-files?pathf={{file}}" class="renameFile block py-2 px-4 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white">
+                          <i class='bx bx-rename'></i>
+                          <span>Rename</span>
+                        </a>
+                      </li>
+                      <li class="disabled">
+                        <a href="#" class="block py-2 px-4 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white">Move</a>
+                      </li>
+                      <li>
+                        <a href="/my-files?pathf={{file}}&download=1" class="block py-2 px-4 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white">
+                          <i class='bx bx-download'></i>
+                          <span>Download</span> 
+                        </a>
+                      </li>
+                    </ul>
+                    <div class="py-1">
+                      <a href="/my-files?pathf={{file}}&delete=1" class="block py-2 px-4 text-sm text-gray-700 hover:bg-gray-100 dark:hover:bg-gray-600 dark:text-gray-200 dark:hover:text-white">Delete</a>
+                    </div>
+                </div>
+            
+            
+            </div>
+            {% endfor %}
+        {% elif folders|length !=0 and files|length !=0 %}
+            {% for folder in folders %}
+            <div id="Folder{{loop.index}}"class="folder">
+                <!-- <a class="link" href="/my-files?pathd={{folder}}">{{ folder }}</a> -->
+                <span class="link">{{ folder }}</span>
+                <div  id="dropdownFolder{{loop.index}}" class="hidden dropdownDots z-10 w-44 bg-white rounded divide-y divide-gray-100 shadow dark:bg-gray-700 dark:divide-gray-600">
+                    <ul class="py-1 text-sm text-gray-700 dark:text-gray-200" aria-labelledby="dropdownMenuIconButton">
+                      <li>
+                        <a href="/my-files?pathd={{folder}}" class="block py-2 px-4 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white">Open</a>
+                      </li>
+                      <li>
+                        <a href="#/my-files?pathd={{folder}}" class="renameFolder block py-2 px-4 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white" data-modal-toggle="authentication-modal">
+                          
+                          <i class='bx bx-rename'></i>
+                          <span>Rename</span>
+                        </a>
+                      </li>
+                      <li class="disabled">
+                        <a href="#" class="block py-2 px-4 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white">Move</a>
+                      </li>
+                      <li class="">
+                        <a href="/my-files?pathd={{folder}}&download=1" class="block py-2 px-4 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white">
+                          <i class='bx bx-download'></i>
+                          <span>Download</span>
+                        </a>
+                      </li>
+                    </ul>
+                    <div class="py-1">
+                      <a href="/my-files?pathd={{folder}}&delete=1" class="block py-2 px-4 text-sm text-gray-700 hover:bg-gray-100 dark:hover:bg-gray-600 dark:text-gray-200 dark:hover:text-white">Delete</a>
+                    </div>
+                </div>
+
+            </div>
+  
+            {% endfor %}
+
+            {% for file in files %}
+                    <div id="File{{loop.index}}" class="file typeFile">
+                      <!-- <a class="link" href="/my-files?pathf={{file}}">{{ file }}</a> -->
+                      <span class="link">{{ file }}</span>
+                        <div id="dropdownFile{{ loop.index }}" class="hidden z-10 w-44 bg-white rounded divide-y divide-gray-100 shadow dark:bg-gray-700 dark:divide-gray-600">
+                            <ul class="py-1 text-sm text-gray-700 dark:text-gray-200" aria-labelledby="dropdownMenuIconButton">
+                              <li>
+                                <a href="/my-files?open={{file}}" target="_blank" class="block py-2 px-4 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white">Open</a>
+                              </li>
+                              <li>
+                                <li class="disabled">
+                                  <a href="/myfiles?edit={{file}}" class="block py-2 px-4 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white">Edit</a>
+                                </li>
+                                <a href="#/my-files?pathf={{file}}" class="renameFile block py-2 px-4 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white" data-modal-toggle="authentication-modal">
+                                  
+                                  <i class='bx bx-rename'></i>
+                                  <span>Rename</span>
+                                </a>
+                              </li>
+                              <li class="disabled">
+                                <a href="#" class="block py-2 px-4 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white">Move</a>
+                              </li>
+                              <li>
+                                <a href="/my-files?pathf={{file}}&download=1" class="block py-2 px-4 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white">
+                                  
+                                  <i class='bx bx-download'></i>
+                                  <span>Download</span>
+                                </a>
+                              </li>
+                            </ul>
+                            <div class="py-1">
+                              <a href="/my-files?pathf={{file}}&delete=1" class="block py-2 px-4 text-sm text-gray-700 hover:bg-gray-100 dark:hover:bg-gray-600 dark:text-gray-200 dark:hover:text-white">Delete</a>
+                            </div>
+                        </div>
+                    
+                    </div>
+            {% endfor %}
+        {%endif%}
+        
+    </ul> 
+    
+{% endblock %}

@@ -1,0 +1,16 @@
+{% extends "sidebar.html" %}
+   {% block head %}
+   {{ super() }}
+   <!-- <link rel="stylesheet" href="https://unpkg.com/flowbite@1.5.3/dist/flowbite.min.css" /> -->
+   {% endblock %}
+{% block body %}
+<div class="upload" id="uploadModal"aria-hidden="true">
+    <h1>Fileman</h1>
+    <form enctype="multipart/form-data" action="/upload" method="POST">
+        <input type="file" name="file[]" id="" multiple="">
+        <input name="upload" type="submit" value="Submit">
+    </form> 
+
+</div>
+
+{% endblock%}

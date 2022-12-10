@@ -1,0 +1,21 @@
+{% extends "navbar.html"%}
+{% block head %}
+   {{ super() }}
+   <script src="/static/codemirror/lib/codemirror.js"></script>
+   <link rel="stylesheet" href="/static/codemirror/lib/codemirror.css">
+   <script src="/static/codemirror/mode/xml/xml.js"></script>
+   <link rel="stylesheet" href="/static/codemirror/theme/dracula.css">
+
+{% endblock %}
+   
+
+{% block body%}
+    <textarea class="CodeMirror__wrapper" id="editor">{{data}}</textarea>
+    <script>
+        var editor =  CodeMirror.fromTextArea(document.getElementById('editor'),{
+            mode:'xml',
+            theme:"dracula",
+            readOnly: true
+        });
+    </script>
+{% endblock %}

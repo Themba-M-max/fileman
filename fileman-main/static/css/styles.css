@@ -1,0 +1,147 @@
+body
+{
+    background-image:url(../images/people.png); 
+    background-size: cover; 
+    background-repeat: no-repeat; 
+    
+}    
+.aboutpage 
+{ 
+    background-image:url(../images/people.png); 
+    background-size: cover; 
+    background-repeat: no-repeat; 
+    height: 100vh; 
+    margin: 0; 
+    padding: 0; 
+    
+} 
+.aboutpage h2  
+{ 
+    font-family: Georgia, 'Times New Roman', Times, serif;   
+    font-size: 2cm;
+    text-align: center; 
+    color: black;
+}   
+
+.description_paragraph 
+{ 
+    font-family: Georgia, 'Times New Roman', Times, serif; 
+    font-size: 8mm;
+    font-style: oblique;
+    text-align: left; 
+    color: black;
+
+}
+
+.banner-text h4  
+{ 
+    text-align: center; 
+    font-size: 30px; 
+    margin: 0; 
+    color: black; 
+    text-transform: uppercase;
+} 
+
+
+.navbar
+{
+    background-color: rgb(33,37,41) !important;
+}
+.sign-in
+{
+    width: 50vw;
+} 
+.row-sign-in 
+{
+    height: 70vh;
+    display: flex;
+    align-items: center;
+
+}
+.row-about
+{
+    height:90vh;
+}
+.column
+{
+    width: 100vw;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+}
+.form-1
+{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 100%;
+}
+.sign-in
+{
+    width: 100%;
+}
+
+.password-sign, .email
+{
+    width: 30vw;
+}
+.bottom
+{
+    padding-top: 2%;
+
+}
+@media only screen and (max-width: 600px) 
+{
+    .password
+    {
+        width: 30vw;
+    }
+}
+.name, .contact, .contact-deets, .password
+{
+    width:100vh;
+}
+.name, .contact, .contact-deets, .password
+{
+    overflow: hidden;
+}
+.name .orgType,
+.name .orgname,
+.contact .orgcontact,
+.contact .orgsurname,
+.contact-deets .orgnumber,
+.contact-deets .orgemail,
+.password .pass,
+.password .confpass
+{
+    width:49%;
+}
+.name .orgType,
+.contact .orgcontact,
+.contact-deets .orgnumber,
+.password .pass
+{
+    float: left;
+}
+
+.name .orgname,
+.contact .orgsurname,
+.contact-deets .orgemail,
+.password .confpass
+{
+    float: right;
+}
+
+.name label,
+.contact label 
+.contact-deets label,
+.password label
+{
+    display: block;
+}
+.CodeMirror__wrapper {
+    resize: both;
+    overflow: auto !important;
+}

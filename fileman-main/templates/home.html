@@ -1,0 +1,31 @@
+{% extends "navbar.html" %}
+{% block head%}
+  {{ super() }}
+{% endblock%}
+{% block body %}
+<div style="height: 90vh; align-items: center;" class="row">
+  <div class="col">       
+    <div class="text-center">
+      <img src="/static/images/logo_home-8.png" width="850px" class="img-fluid" alt="big-logo">  
+      <div class="banner">
+      <div class= "banner-text"> 
+      <h4>Lightweight File Manager</h4>  
+      </div>  
+      </div>
+     
+      {%if session['user']%}
+      <form action="/home" method="post">
+        <button name="files" type="submit" class="btn btn-outline-secondary">Go to Files</button>
+      </form>
+      {%else%}
+        <form action="/home" method="post">
+          <button name="start" type="submit" class="btn btn-outline-secondary">Get Started</button>
+        </form>
+          
+      {%endif%}
+      
+    </div>
+    
+  </div>
+</div>
+{% endblock %}

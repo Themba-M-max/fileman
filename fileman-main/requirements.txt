@@ -1,0 +1,9 @@
+Flask
+flask-login
+flask_sqlalchemy
+flask_bcrypt
+psycopg2-binary
+python-dotenv
+flask_session
+python-magic
+beautifulsoup4

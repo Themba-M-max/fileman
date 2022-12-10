@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    {% block head %}
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    
+    <!----======== CSS ======== -->
+    <link rel="stylesheet" href="/static/css/sidebar.css">
+    <link rel="stylesheet" href="https://unpkg.com/flowbite@1.5.3/dist/flowbite.min.css" />
+
+    <!----===== Boxicons CSS ===== -->
+    <link href='https://unpkg.com/boxicons@2.1.1/css/boxicons.min.css' rel='stylesheet'>
+    <link rel="shortcut icon" href="/static/images/favicon-8.png" type="image/x-icon"> 
+
+    {% endblock %}
+</head>
+<body>
+    <nav class="sidebar">
+        <header>
+            <div class="image-text">
+                <span class="image">
+                    <!-- <img src="/static/images/logo_home-8.png" alt=""  width="200px"> -->
+                </span>
+
+                <div class="text logo-text">
+                    <!-- <span class="name">Fileman</span> -->
+                    <a href="/">
+                        <img src="/static/images/logo_home-8.png" alt="">
+                    </a>
+                    <!-- <span class="profession">Web developer</span> -->
+                </div>
+            </div>
+
+            <i class='bx bx-chevron-right toggle'></i>
+        </header>
+
+        <div class="menu-bar">
+            <div class="menu">
+
+
+
+                <ul class="menu-links">
+                    <li class="nav-link">
+                        <a data-popover-target="popover-default" data-popover-placement="left"  data-modal-toggle="authentication-modal" href="#" id="new-folder">
+                            
+                            <i class='bx bx-folder-plus icon'></i>
+                            <span class="text nav-text">New Folder</span>
+                        </a>
+                    </li>
+
+                    <li class="nav-link">
+                        <a href="#" id="upload" data-popover-placement="left" data-popover-target="popover-upload" data-modal-toggle="authentication-modal">
+                            <i class='bx bx-upload icon'></i>
+                            <span class="text nav-text">Upload</span>
+                        </a>
+                    </li>
+                </ul>
+            </div>
+
+            <div class="bottom-content">
+                <li class="nav-link">
+                    <a href="/logout" id="logout">
+                        <i class='bx bx-log-out icon' ></i>
+                        <span class="text nav-text">Logout</span>
+                    </a>
+                </li>
+
+                <li class="mode">
+                    <div class="sun-moon">
+                        <i class='bx bx-moon icon moon'></i>
+                        <i class='bx bx-sun icon sun'></i>
+                    </div>
+                    <span class="mode-text text">Dark mode</span>
+
+                    <div class="toggle-switch">
+                        <span class="switch"></span>
+                    </div>
+                </li>
+                
+            </div>
+        </div>
+
+    </nav>
+
+    <section class="home">
+        <!-- <div class="text">Dashboard Sidebar</div> -->
+
+        {% block body %}
+        
+        {% endblock %}
+    </section>
+    
+    <script src="https://unpkg.com/flowbite@1.5.3/dist/flowbite.js"></script>
+    <script src="/static/js/sidebar.js"></script>
+    <script src="https://unpkg.com/ionicons@5.4.0/dist/ionicons.js"></script>
+    
+
+</body>
+</html>
